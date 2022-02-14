@@ -16,11 +16,17 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeComponent,
-    EmployeeListComponent
+    EmployeeListComponent,
+    DialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +45,10 @@ import {MatButtonModule} from '@angular/material/button';
     MatInputModule,
     MatMenuModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule,
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [EmployeeService],
   bootstrap: [AppComponent]

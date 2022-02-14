@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { catchError, map, reduce } from 'rxjs/operators';
-import { MatTableModule } from '@angular/material/table'
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../employee';
-import { EmployeeListComponent } from '../employee-list/employee-list.component';
 import { EmployeeService } from '../employee.service';
+
+import { MatTable } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 
 
 @Component({
@@ -15,13 +16,13 @@ export class EmployeeComponent {
   compensation: number;
   @Input() employee: Employee;
   reports = [];
-  table: any;
-  headers = ["firstName", "lastName", "position"]
+  dataSource = this.reports;
+  displayedColumns: string[] = ["id", "firstName", "lastName", "position", "action"]
   errorMessage: string;
 
+  @ViewChild(MatTable,{static:true}) table: MatTable<any>;
 
-
-  constructor(private employeeService: EmployeeService) {
+  constructor(private employeeService: EmployeeService, public dialog: MatDialog) {
   }
 
   private totalReports(ids) {
@@ -33,21 +34,80 @@ export class EmployeeComponent {
     }
   }
 
-  private directReportsList() {
-    if (this.employee.directReports) {
-      this.employee.directReports.forEach(element => {
-        this.employeeService.get(element).subscribe(restItems => {
-          this.reports.push(restItems)
-        })
-      })
-    } else {
-      return
-    }
+  // private directReportsList() {
+  //   if (this.employee.directReports) {
+  //     this.employee.directReports.forEach(element => {
+  //       this.employeeService.get(element).subscribe(restItem => {
+  //         console.log(typeof (restItem));
+  //         this.reports.push(restItem)
+  //       })
+  //     })
+  //   } else {
+  //     return []
+  //   }
+  // }
+
+
+  // private directReportsList() {
+  //   if (this.employee.directReports) {
+  //     for (let element of this.employee.directReports) {
+  //       this.employeeService.get(element).subscribe(restItem => {
+  //         this.reports.push(restItem)
+  //       })
+  //     }
+  //     this.dataSource = this.reports
+  //     console.log(this.dataSource)
+  //   } else {
+  //     return []
+  //   }
+  // }
+
+  openDialog(action,obj) {
+    obj.action = action;
+    const dialogRef = this.dialog.open(DialogBoxComponent, {
+      width: '250px',
+      data:obj
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result.event == 'Update'){
+        this.updateRowData(result.data);
+      }else if(result.event == 'Delete'){
+        this.deleteRowData(result.data);
+      }
+    });
+  }
+
+  updateRowData(row_obj){
+    this.dataSource = this.dataSource.filter((value,key)=>{
+      if(value.id == row_obj.id){
+        value.firstName = row_obj.firstName;
+        value.lastName = row_obj.lastName;
+        value.position = row_obj.position;
+        value.compensation = row_obj.compensation;
+      }
+      return true;
+    });
+  }
+
+  deleteRowData(row_obj){
+    this.dataSource = this.dataSource.filter((value,key)=>{
+      return value.id != row_obj.id;
+    });
   }
 
 
   ngOnInit(): void {
-    this.directReportsList()
+    if (this.employee.directReports) {
+      for (let element of this.employee.directReports) {
+        this.employeeService.get(element).subscribe(restItem => {
+          this.reports.push(restItem)
+        })
+      }
+      this.dataSource = this.dataSource.sort()
+    } else {
+      return
+    }
   }
 
   private handleError(e: Error | any): string {
