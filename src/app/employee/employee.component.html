@@ -9,47 +9,28 @@
       <dt>Job Title</dt>
       <dd>{{employee.position}}</dd>
       <h2>Direct Reports</h2>
-      <!-- <table>
-        <tr *ngIf="reports.length > 0; else elseBlock">
-          <th *ngFor = "let column of headers">
-            {{ column }}
-          </th>
-        </tr>
-        <ng-template #elseBlock>This employee has no direct reports</ng-template>
-        <tr *ngFor="let row of reports">
-          <td *ngFor="let column of headers">
-            <div *ngIf="row[column]"> {{ row[column] }}</div>
-
-          </td>
-        </tr>
-      </table> -->
-
       <div class="container text-center" *ngIf="dataSource.length > 0">
-      
         <table mat-table [dataSource]="dataSource" #mytable class="my-table mat-elevation-z8">
-      
-          <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
-      
+
           <!-- Id Column -->
           <ng-container matColumnDef="id">
             <th mat-header-cell *matHeaderCellDef> ID </th>
             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
           </ng-container>
       
-          <!-- Name Column -->
+          <!-- firstName Column -->
           <ng-container matColumnDef="firstName">
             <th mat-header-cell *matHeaderCellDef> First Name </th>
             <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
           </ng-container>
 
-          <!-- Name Column -->
+          <!-- lastName Column -->
           <ng-container matColumnDef="lastName">
             <th mat-header-cell *matHeaderCellDef> Last Name </th>
             <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
           </ng-container>
 
-          <!-- Name Column -->
+          <!-- position Column -->
           <ng-container matColumnDef="position">
             <th mat-header-cell *matHeaderCellDef> Position </th>
             <td mat-cell *matCellDef="let element"> {{element.position}} </td>
@@ -59,8 +40,8 @@
           <ng-container matColumnDef="action">
             <th mat-header-cell *matHeaderCellDef> Action </th>
             <td mat-cell *matCellDef="let element" class="action-link"> 
-              <a (click)="openDialog('Update',element)">Edit</a> | 
-              <a (click)="openDialog('Delete',element)">Delete</a>  
+              <button (click)="openDialog('Update',element)">Edit</button> | 
+              <button (click)="openDialog('Delete',element)">Delete</button>  
             </td>
           </ng-container>
       

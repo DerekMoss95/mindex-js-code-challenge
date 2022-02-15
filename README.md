@@ -77,3 +77,4 @@ The tasks for this challenge will build a simple user interface that will allow 
 ### Task 6
 
 1. Style the page to your liking, ... show us what you got. Have fun.
+

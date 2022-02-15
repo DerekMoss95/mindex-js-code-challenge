@@ -1,17 +1,23 @@
-<!-- dialog-box.component.html -->
+<!-- Need to figure out best looking way to remove these fields as inputs but style them the same as compensation -->
 <h1 mat-dialog-title><strong>{{action}}</strong></h1>
-<div mat-dialog-content>
-  <mat-form-field *ngIf="action != 'Delete'; else elseTemplate">
+<div mat-dialog-content *ngIf="action != 'Delete'; else elseTemplate">
+  <mat-form-field>
     <input placeholder="{{action}} firstName" matInput [(ngModel)]="local_data.firstName">
-    <input placeholder="{{action}} lastName" matInput [(ngModel)]="local_data.lastName">
-    <input placeholder="{{action}} position" matInput [(ngModel)]="local_data.position">
-    <input placeholder="{{action}} compensation" matInput [(ngModel)]="local_data.compensation">
-
   </mat-form-field>
+  <mat-form-field>
+    <input placeholder="{{action}} lastName" matInput [(ngModel)]="local_data.lastName">
+  </mat-form-field>
+  <mat-form-field>
+    <input placeholder="{{action}} position" matInput [(ngModel)]="local_data.position">
+  </mat-form-field>
+  <!-- I would like to figure out a way to make this a currency field -->
+  <mat-form-field>
+    <input placeholder="{{action}} compensation" matInput [(ngModel)]="local_data.compensation">
+  </mat-form-field>
+  </div>
   <ng-template #elseTemplate>
     Are you sure you want to delete <b>{{local_data.firstName}}</b>?
   </ng-template>
-</div>
 <div mat-dialog-actions>
   <button mat-button (click)="doAction()">{{action}}</button>
   <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>

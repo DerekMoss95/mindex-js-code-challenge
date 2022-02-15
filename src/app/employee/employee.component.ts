@@ -34,38 +34,10 @@ export class EmployeeComponent {
     }
   }
 
-  // private directReportsList() {
-  //   if (this.employee.directReports) {
-  //     this.employee.directReports.forEach(element => {
-  //       this.employeeService.get(element).subscribe(restItem => {
-  //         console.log(typeof (restItem));
-  //         this.reports.push(restItem)
-  //       })
-  //     })
-  //   } else {
-  //     return []
-  //   }
-  // }
-
-
-  // private directReportsList() {
-  //   if (this.employee.directReports) {
-  //     for (let element of this.employee.directReports) {
-  //       this.employeeService.get(element).subscribe(restItem => {
-  //         this.reports.push(restItem)
-  //       })
-  //     }
-  //     this.dataSource = this.reports
-  //     console.log(this.dataSource)
-  //   } else {
-  //     return []
-  //   }
-  // }
-
   openDialog(action,obj) {
     obj.action = action;
     const dialogRef = this.dialog.open(DialogBoxComponent, {
-      width: '250px',
+      width: '275px',
       data:obj
     });
 
@@ -78,6 +50,7 @@ export class EmployeeComponent {
     });
   }
 
+  //Need to figure out why running this functions loads all the rows in the mat-table
   updateRowData(row_obj){
     this.dataSource = this.dataSource.filter((value,key)=>{
       if(value.id == row_obj.id){
@@ -96,7 +69,7 @@ export class EmployeeComponent {
     });
   }
 
-
+ // Need to figure out why this only renders the first row on page load
   ngOnInit(): void {
     if (this.employee.directReports) {
       for (let element of this.employee.directReports) {
@@ -104,7 +77,6 @@ export class EmployeeComponent {
           this.reports.push(restItem)
         })
       }
-      this.dataSource = this.dataSource.sort()
     } else {
       return
     }

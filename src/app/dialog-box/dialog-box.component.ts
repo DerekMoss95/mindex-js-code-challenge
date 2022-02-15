@@ -1,6 +1,8 @@
 //dialog-box.component.ts
-import { Component, Inject, Optional } from '@angular/core';
+import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {FormBuilder, Validators, FormGroup} from "@angular/forms";
+
 
 export interface EmployeeData {
   id: number;
@@ -16,6 +18,7 @@ export interface EmployeeData {
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.css']
 })
+
 export class DialogBoxComponent {
 
   action:string;
@@ -37,5 +40,6 @@ export class DialogBoxComponent {
   closeDialog(){
     this.dialogRef.close({event:'Cancel'});
   }
+
 
 }
