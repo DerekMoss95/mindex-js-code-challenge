@@ -3,7 +3,7 @@ The main reference that I used to help me build out this project:
 https://www.freakyjolly.com/angular-material-table-operations-using-dialog/
 
 -I added the compensation field to the employee.ts file
--I put this as a function in employee.component.ts and it tells you how many direct reports this person has right after the ID value in each tile
+-I implemented a directReports count in employee.component.ts and it tells you how many direct reports this person has right after the ID value in each tile
 -I listed the direct reports of each employee (if any) and put them into a material table. This was accomplished in employee.component.ts and employee.component.html
 -I added the buttons to edit and delete rows for each direct report under each employee that had direct reports however, I made all values editable, not just compensation because it looked better. I would like to find a way to keep the styling the same for those rows in the dialog box but still disable input
 -I registered a new dialog component that works pretty well overall which gives the user a edit dialog box to enter or edit information, or to delete a row from the table under that employee's direct reports. 
